@@ -1,0 +1,32 @@
+<?php
+
+return [
+            'ID' => 'ID',
+            'User ID' => 'User ID',
+            'Image' => 'Image',
+            'Permit' => 'Permit',
+            'Insurance' => 'Insurance',
+            'Yearly Km' => 'Yearly Km',
+            'Yearly Insurance' => 'Yearly Insurance',
+            'Yearly Maintenance' => 'Yearly Maintenance',
+            'Yearly Tax' => 'Yearly Tax',
+            'Yearly Gara' => 'Yearly Gara',
+            'Yearly Unexpected' => 'Yearly Unexpected',
+            'Year Intend' => 'Year Intend',
+            'Price 4 New Tyres' => 'Price 4 New Tyres',
+            'Average Consumption' => 'Average Consumption',
+            'Fuel Unit Price' => 'Fuel Unit Price',
+            'Fuel Type' => 'Fuel Type',
+            'Sold Value' => 'Sold Value',
+            'Bought Value' => 'Bought Value',
+            'Plate' => 'Plate',
+            'Brand' => 'Brand',
+            'Model' => 'Model',
+            'Color' => 'Color',
+            'Year' => 'Year',
+            'Status' => 'Status',
+            'Description' => 'Description',
+            'Created Date' => 'Created Date',
+            'Modified Date' => 'Modified Date',
+        ];
+?>

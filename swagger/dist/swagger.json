@@ -1,0 +1,3980 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Iwanadeal.  For this sample, you can use the api key `special-key` to test the authorization filters.",
+    "version": "1.0.0",
+    "title": "marketplace",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "iwanadeal.com/backend/web/index.php",
+  "basePath": "/api",
+  "schemes": [
+    "http"
+  ],
+  "tags": [
+    {
+      "name": "User",
+      "description": "Operations about user"
+    },
+    {
+      "name": "Category",
+      "description": "Operations about category"
+    },
+    {
+      "name": "Deal",
+      "description": "Operations about deal"
+    },
+    {
+      "name": "Review",
+      "description": "Operations about review"
+    },
+    {
+      "name": "Favourite",
+      "description": "Operations about favourite"
+    },
+    {
+      "name": "Device",
+      "description": "Operations about review"
+    },
+    {
+      "name": "Reservation",
+      "description": "Operations about deal reservation (deal order)"
+    },
+    {
+      "name": "Transaction",
+      "description": "Operations about transaction"
+    },
+    {
+      "name": "Transport",
+      "description": "Operations about transport deal"
+    },
+    {
+      "name": "Friend",
+      "description": "Operations about friend"
+    },
+    {
+      "name": "Utility",
+      "description": "Operations about something"
+    }
+  ],
+  "paths": {
+    "/user/register": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Signup app user",
+        "description": "",
+        "operationId": "register",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "username",
+            "description": "Username (email)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "password",
+            "description": "Password",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "name",
+            "description": "Full Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "gender",
+            "description": "Gender",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "address",
+            "description": "Address",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "phone",
+            "description": "Phone",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseSuccess"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorUser"
+            }
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Login app user",
+        "description": "",
+        "operationId": "login",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "username",
+            "description": "Username (email)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "password",
+            "description": "Password - (Required if login_type = n)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "ime",
+            "description": "Imei",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "gcm_id",
+            "description": "Gcm Id / Token",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "description": "1: android / 2: IOS",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "login_type",
+            "description": "n: normal / s: social",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "name",
+            "description": "Name - (Required if login_type = s) - From social network",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "avatar",
+            "description": "Avatar link from social network",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseUser"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorUser"
+            }
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logout app user",
+        "description": "",
+        "operationId": "logout",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "Login token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseSuccess"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/user/profile": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Show user profile",
+        "description": "",
+        "operationId": "login",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "Login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "user_id",
+            "description": "If it was passed, you can see other user profile",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseUser"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorUser"
+            }
+          }
+        }
+      }
+    },
+    "/user/forget-password": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Forget Password",
+        "description": "",
+        "operationId": "forgetPassword",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "email",
+            "description": "Registered email",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseSuccess"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/user/change-password": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Change Password",
+        "description": "",
+        "operationId": "changePassword",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "current_password",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "new_password",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseSuccess"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/user/setting": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Show & update user settings",
+        "description": "",
+        "operationId": "userSetting",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "notify",
+            "required": false,
+            "description": "1/0",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "notify_favourite",
+            "description": "1/0",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "notify_transport",
+            "description": "1/0",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "notify_food",
+            "description": "1/0",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "notify_labor",
+            "description": "1/0",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "notify_travel",
+            "description": "1/0",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "notify_shopping",
+            "description": "1/0",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "notify_news",
+            "description": "1/0",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "notify_nearby",
+            "description": "1/0",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseSuccess"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/device": {
+      "post": {
+        "tags": [
+          "device"
+        ],
+        "summary": "Register / update device",
+        "description": "",
+        "operationId": "device",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "Login token",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "ime",
+            "description": "Imei",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "gcm_id",
+            "description": "Gcm Id / Token",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "description": "1: enable push / 0: disable push",
+            "required": false,
+            "type": "intger"
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "description": "1: android / 2: IOS",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseDevice"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorUser"
+            }
+          }
+        }
+      }
+    },
+    "/favourite": {
+      "post": {
+        "tags": [
+          "favourite"
+        ],
+        "summary": "Favourite an object",
+        "description": "",
+        "operationId": "favourite",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "object_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "object_type",
+            "description": "deal",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseSuccess"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/user/update-profile": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Update basic profile",
+        "description": "",
+        "operationId": "updateProfile",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login_token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "qb_id",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "password",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "name",
+            "description": "Full Name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "description",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "gender",
+            "description": "male / female",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "phone",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "dob",
+            "description": "Date of birth",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "address",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "avatar",
+            "required": false,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseSuccess"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorUser"
+            }
+          }
+        }
+      }
+    },
+    "/user/update-pro-profile": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Update pro profile",
+        "description": "",
+        "operationId": "updateProProfile",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "Login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "avatar",
+            "required": false,
+            "type": "file"
+          },
+          {
+            "in": "query",
+            "name": "business_description",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "business_name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "business_email",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "business_address",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "business_website",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "business_phone",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "driver_experience",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "driver_license",
+            "required": false,
+            "type": "file"
+          },
+          {
+            "in": "query",
+            "name": "fare",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "fare_type",
+            "description": "manual/auto",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "description": "taxi / vip / lift / moto",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "is_delivery",
+            "description": "1 / 0",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "image",
+            "required": false,
+            "type": "file"
+          },
+          {
+            "in": "query",
+            "name": "permit",
+            "required": false,
+            "type": "file"
+          },
+          {
+            "in": "query",
+            "name": "insurance",
+            "required": false,
+            "type": "file"
+          },
+          {
+            "in": "query",
+            "name": "yearly_km",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "yearly_insurance",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "yearly_maintenance",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "yearly_tax",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "yearly_gara",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "yearly_unexpected",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "year_intend",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "price_4_new_tyres",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "average_consumption",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "fuel_unit_price",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "fuel_type",
+            "description": "gas/petrol",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "sold_value",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "bought_value",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "plate",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "brand",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "model",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "color",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "year",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "description",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseSuccess"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorUser"
+            }
+          }
+        }
+      }
+    },
+    "/category/list": {
+      "post": {
+        "tags": [
+          "category"
+        ],
+        "summary": "Show categories",
+        "description": "",
+        "operationId": "categoryList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseCategory"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/deal": {
+      "post": {
+        "tags": [
+          "deal"
+        ],
+        "summary": "Create/update/delete deal",
+        "description": "",
+        "operationId": "deal",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "deal_id",
+            "description": "required if action = update/delete/online",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "action",
+            "description": "create/update/delete/online",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "description",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "category_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "price",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "discount",
+            "required": false,
+            "type": "integer"
+          },
+		   {
+            "in": "query",
+            "name": "discount_type",
+            "description": "percent/amount",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "lat",
+            "description": "current user latitude",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "long",
+            "description": "current user longitude",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "address",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "is_premium",
+            "description": "1: Premium, 0: Standard",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "is_renew",
+            "description": "1: Yes, 0: No",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "duration",
+            "description": "number of online hours",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "image",
+            "required": false,
+            "type": "file"
+          },
+          {
+            "in": "query",
+            "name": "attachment",
+            "required": false,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseSuccess"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/deal/list": {
+      "post": {
+        "tags": [
+          "deal"
+        ],
+        "summary": "Show deals",
+        "description": "",
+        "operationId": "dealList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "keyword",
+            "description": "keyword for searching",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "search_type",
+            "description": "search type: mine/nearby/all/favourite/review",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "is_online",
+            "description": "1: Online / 0: Offline / khong truyen: All",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "distance",
+            "description": "km (required if search type = nearby)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "lat",
+            "description": "current user latitude (required if search type = nearby)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "long",
+            "description": "current user longitude (required if search type = nearby)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "sort_by",
+            "description": "distance/rate/name/sale_price",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "sort_type",
+            "description": "ASC/DESC",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "category_id",
+            "description": "deal category Id",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "page",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "number_per_page",
+            "description": "Number of item per page",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseDealList"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/deal/detail": {
+      "post": {
+        "tags": [
+          "deal"
+        ],
+        "summary": "Show deal detail",
+        "description": "",
+        "operationId": "dealDetail",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "deal_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseDeal"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/deal/switch": {
+      "post": {
+        "tags": [
+          "deal"
+        ],
+        "summary": "Switch on/off deal",
+        "description": "",
+        "operationId": "dealSwitch",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "deal_id",
+            "description": "required if action = update/delete",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "mode",
+            "description": "on/off",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseSuccess"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/review": {
+      "post": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Create/update review",
+        "description": "",
+        "operationId": "review",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "destination_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "author_role",
+            "description": "passenger/driver/seller/buyer",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "destination_role",
+            "description": "passenger/driver/seller/buyer",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "object_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "object_type",
+            "description": "deal/trip",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "content",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "rate",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseSuccess"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/review/list": {
+      "post": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Show reviews",
+        "description": "",
+        "operationId": "reviewList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "object_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "object_type",
+            "description": "object type: basic/pro/trip/deal/user",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "page number",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseReviewList"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/friend": {
+      "post": {
+        "tags": [
+          "friend"
+        ],
+        "summary": "Add/remove friend",
+        "description": "",
+        "operationId": "friend",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "user_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "friend_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "action",
+            "required": true,
+			"description": "object type: add/remove",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseSuccess"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/friend/list": {
+      "post": {
+        "tags": [
+          "friend"
+        ],
+        "summary": "Show reviews",
+        "description": "",
+        "operationId": "reviewList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseFriendList"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/reservation": {
+      "post": {
+        "tags": [
+          "reservation"
+        ],
+        "summary": "deal/deny/delete/finish/pay/detail",
+        "description": "",
+        "operationId": "reservation",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "deal_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "action",
+            "description": "deal/deny/delete/finish/pay",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "deal_name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "buyer_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "buyer_name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "reservation_id",
+            "description": "required if delete, finish, pay",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "payment_method",
+            "description": "point/credit/paypal/cod",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "price",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "rate",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "content",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseSuccess"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/reservation/list": {
+      "post": {
+        "tags": [
+          "reservation"
+        ],
+        "summary": "Show reservations",
+        "description": "",
+        "operationId": "reservationList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "search_type",
+            "description": "search type: bought/sold/nodeal",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "deal_id",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "page",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseReservationList"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/transaction": {
+      "post": {
+        "tags": [
+          "transaction"
+        ],
+        "summary": "Exchange / Redeem / Transfer",
+        "description": "",
+        "operationId": "transaction",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "amount",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "action",
+            "description": "exchange/redeem/transfer",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "note",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "payment_method",
+            "description": "point/credit/paypal/cod",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "destination_email",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "external_transaction_id",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseSuccess"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/transaction/delete": {
+      "post": {
+        "tags": [
+          "transaction"
+        ],
+        "summary": "Delete / Hide Transaction History",
+        "description": "",
+        "operationId": "transaction",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "transaction_id",
+            "description": "passing if you want to delete 1 transaction",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseSuccess"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/transaction/list": {
+      "post": {
+        "tags": [
+          "transaction"
+        ],
+        "summary": "Show transaction history",
+        "description": "",
+        "operationId": "transactionList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "page",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseTransactionList"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/transaction/accounting": {
+      "post": {
+        "tags": [
+          "transaction"
+        ],
+        "summary": "Accounting",
+        "description": "",
+        "operationId": "accounting",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "description": "deal/trip",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/AccountingList"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/transport/online": {
+      "post": {
+        "tags": [
+          "transport"
+        ],
+        "summary": "Driver online",
+        "description": "",
+        "operationId": "online",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "mode",
+            "description": "buy/on/off",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "duration",
+            "description": "x hours",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseSuccess"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/transport/driver-list": {
+      "post": {
+        "tags": [
+          "transport"
+        ],
+        "summary": "Search driver",
+        "description": "",
+        "operationId": "driverList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "description": "taxi/vip/lift/moto/all/delivery",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "distance",
+            "description": "x kilometers",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "start_lat",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "start_long",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "end_lat",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "end_long",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseDriverList"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/transport/trip": {
+      "post": {
+        "tags": [
+          "transport"
+        ],
+        "summary": "Trip operations",
+        "description": "",
+        "operationId": "trip",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "action",
+            "description": "create/update/delete/cancel/finish/detail",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "trip_id",
+            "description": "required if action != create",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "passenger_id",
+            "required": false,
+            "description": "required if action = create",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "driver_id",
+            "required": false,
+            "description": "required if action = create",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "seat_count",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "start_lat",
+            "required": false,
+            "description": "required if action = create",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "start_long",
+            "required": false,
+            "description": "required if action = create",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "start_location",
+            "description": "required if action = create",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "end_lat",
+            "description": "required if action = create",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "end_long",
+            "description": "required if action = create",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "end_location",
+            "description": "required if action = create",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "distance",
+            "description": "x meters",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "estimate_distance",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "estimate_duration",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "estimate_fare",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "actual_fare",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "payment_method",
+            "description": "point/credit/paypal/cod",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "rate",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "content",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseSuccess"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/transport/trip-bulk-delete": {
+      "post": {
+        "tags": [
+          "transport"
+        ],
+        "summary": "Delete all",
+        "description": "",
+        "operationId": "trip",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseSuccess"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/transport/trip-list": {
+      "post": {
+        "tags": [
+          "transport"
+        ],
+        "summary": "Show trip list/history",
+        "description": "",
+        "operationId": "tripList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "search_type",
+            "description": "processing / history",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "number_per_page",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseTripList"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/transport/track-driver": {
+      "post": {
+        "tags": [
+          "transport"
+        ],
+        "summary": "Track driver location",
+        "description": "",
+        "operationId": "trackDriver",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "trip_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseLocation"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/utility/setting": {
+      "post": {
+        "tags": [
+          "utility"
+        ],
+        "summary": "Show system settings",
+        "description": "",
+        "operationId": "setting",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseSetting"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/utility/update-location": {
+      "post": {
+        "tags": [
+          "utility"
+        ],
+        "summary": "Update user coordinates",
+        "description": "",
+        "operationId": "updateLocation",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "token",
+            "description": "login token",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "lat",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "long",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseSuccess"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponseErrorGeneral"
+            }
+          }
+        }
+      }
+    },
+    "/utility/error-code": {
+      "post": {
+        "tags": [
+          "utility"
+        ],
+        "summary": "Update user coordinates",
+        "description": "",
+        "operationId": "updateLocation",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "username",
+        "email",
+        "is_active",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int"
+        },
+        "qb_id": {
+          "type": "integer",
+          "format": "int"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "dob": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "balance": {
+          "type": "integer"
+        },
+        "is_active": {
+          "type": "integer",
+          "description": "Is active or not"
+        },
+        "lat": {
+          "type": "string"
+        },
+        "long": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "rate": {
+          "type": "integer"
+        },
+        "rate_count": {
+          "type": "integer"
+        },
+        "created_date": {
+          "type": "string"
+        },
+        "modified_date": {
+          "type": "string"
+        },
+        "is_secured": {
+          "type": "integer"
+        },
+        "avg_rate": {
+          "type": "integer"
+        },
+        "total_rate_count": {
+          "type": "integer"
+        },
+        "pro_data": {
+          "$ref": "#/definitions/ProUser"
+        },
+        "driver_data": {
+          "$ref": "#/definitions/TransportDriver"
+        },
+        "vehicle_data": {
+          "$ref": "#/definitions/TransportVehicle"
+        }
+      }
+    },
+    "Setting": {
+      "type": "object",
+      "properties": {
+        "deal_online_rate": {
+          "type": "string"
+        },
+        "premium_deal_online_rate": {
+          "type": "string"
+        },
+        "driver_online_rate": {
+          "type": "string"
+        },
+        "exchange_rate": {
+          "type": "string"
+        },
+        "searching_deal_distance": {
+          "type": "string"
+        },
+        "searching_driver_distance": {
+          "type": "string"
+        },
+        "faq": {
+          "type": "string"
+        },
+        "about": {
+          "type": "string"
+        },
+        "help": {
+          "type": "string"
+        },
+        "term": {
+          "type": "string"
+        }
+      }
+    },
+    "UserSetting": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "user_id": {
+          "type": "integer"
+        },
+        "notify": {
+          "type": "integer"
+        },
+        "notify_favourite": {
+          "type": "integer"
+        },
+        "notify_transport": {
+          "type": "integer"
+        },
+        "notify_food": {
+          "type": "integer"
+        },
+        "notify_labor": {
+          "type": "integer"
+        },
+        "notify_travel": {
+          "type": "integer"
+        },
+        "notify_shopping": {
+          "type": "integer"
+        },
+        "notify_news": {
+          "type": "integer"
+        },
+        "notify_nearby": {
+          "type": "integer"
+        }
+      }
+    },
+    "Category": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "is_active"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int"
+        },
+        "image": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "is_active": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Is active or not"
+        },
+        "sort_order": {
+          "type": "integer",
+          "format": "int"
+        },
+        "created_date": {
+          "type": "string"
+        },
+        "modified_date": {
+          "type": "string"
+        }
+      }
+    },
+    "Device": {
+      "type": "object",
+      "required": [
+        "id",
+        "ime",
+        "gcm_id",
+        "status",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int"
+        },
+        "ime": {
+          "type": "string"
+        },
+        "gcm_id": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer"
+        },
+        "type": {
+          "type": "integer"
+        },
+        "user_id": {
+          "type": "integer"
+        }
+      }
+    },
+    "Review": {
+      "type": "object",
+      "required": [
+        "id",
+        "author_id",
+        "author_role",
+        "destination_id",
+        "destination_role",
+        "object_id",
+        "object_type",
+        "content",
+        "rate",
+        "is_active"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int"
+        },
+        "author_id": {
+          "type": "integer"
+        },
+        "author_role": {
+          "type": "string"
+        },
+        "destination_id": {
+          "type": "integer"
+        },
+        "destination_role": {
+          "type": "string"
+        },
+        "object_id": {
+          "type": "integer"
+        },
+        "object_type": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "rate": {
+          "type": "integer"
+        },
+        "created_date": {
+          "type": "string"
+        },
+        "modified_date": {
+          "type": "string"
+        },
+        "author_avatar": {
+          "type": "string"
+        },
+        "author_name": {
+          "type": "string"
+        }
+      }
+    },
+    "Trip": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int"
+        },
+        "passenger_id": {
+          "type": "integer",
+          "format": "int"
+        },
+        "passenger_visible": {
+          "type": "integer",
+          "format": "int"
+        },
+        "passenger_confirm": {
+          "type": "integer",
+          "format": "int"
+        },
+        "passenger_rated": {
+          "type": "integer",
+          "format": "int"
+        },
+        "passenger_finished": {
+          "type": "integer",
+          "format": "int"
+        },
+        "driver_id": {
+          "type": "integer",
+          "format": "int"
+        },
+        "driver_visible": {
+          "type": "integer",
+          "format": "int"
+        },
+        "driver_confirm": {
+          "type": "integer",
+          "format": "int"
+        },
+        "driver_rated": {
+          "type": "integer",
+          "format": "int"
+        },
+        "driver_finished": {
+          "type": "integer",
+          "format": "int"
+        },
+        "seat_count": {
+          "type": "integer",
+          "format": "int"
+        },
+        "start_lat": {
+          "type": "integer",
+          "format": "int"
+        },
+        "start_long": {
+          "type": "integer",
+          "format": "int"
+        },
+        "start_location": {
+          "type": "string"
+        },
+        "end_lat": {
+          "type": "integer",
+          "format": "int"
+        },
+        "end_long": {
+          "type": "integer",
+          "format": "int"
+        },
+        "end_location": {
+          "type": "string"
+        },
+        "estimate_duration": {
+          "type": "string"
+        },
+        "estimate_distance": {
+          "type": "string"
+        },
+        "estimate_fare": {
+          "type": "integer",
+          "format": "int"
+        },
+        "actual_fare": {
+          "type": "integer",
+          "format": "int"
+        },
+        "distance": {
+          "type": "integer",
+          "format": "int"
+        },
+        "start_time": {
+          "type": "string"
+        },
+        "end_time": {
+          "type": "string"
+        },
+        "payment_method": {
+          "type": "string",
+          "description": "point/credit/paypal/cod",
+          "enum": [
+            "point",
+            "credit",
+            "paypal",
+            "cod"
+          ]
+        },
+        "payment_status": {
+          "type": "integer",
+          "format": "int"
+        },
+        "status": {
+          "type": "string",
+          "description": "pending/processing/finished/cancelled",
+          "enum": [
+            "pending",
+            "processing",
+            "finished",
+            "cancelled"
+          ]
+        },
+        "is_active": {
+          "type": "integer",
+          "format": "int"
+        },
+        "created_date": {
+          "type": "string"
+        },
+        "modified_date": {
+          "type": "string"
+        },
+        "driver_avatar": {
+          "type": "string"
+        },
+        "driver_name": {
+          "type": "string"
+        },
+        "driver_rate": {
+          "type": "string"
+        },
+        "driver_phone": {
+          "type": "string"
+        },
+        "driver_type": {
+          "type": "string"
+        },
+        "driver_is_delivery": {
+          "type": "integer"
+        },
+        "passenger_avatar": {
+          "type": "string"
+        },
+        "passenger_name": {
+          "type": "string"
+        },
+        "passenger_rate": {
+          "type": "string"
+        },
+        "passenger_rate_count": {
+          "type": "string"
+        },
+        "passenger_phone": {
+          "type": "string"
+        }
+      }
+    },
+    "TransportDriver": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer"
+        },
+        "driver_experience": {
+          "type": "integer"
+        },
+        "driver_license": {
+          "type": "string"
+        },
+        "online_started": {
+          "type": "string"
+        },
+        "online_duration": {
+          "type": "integer"
+        },
+        "fare": {
+          "type": "integer"
+        },
+        "fare_type": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "is_active": {
+          "type": "integer",
+          "description": "Is active or not"
+        },
+        "is_online": {
+          "type": "integer",
+          "description": "Is online or not"
+        },
+        "created_date": {
+          "type": "string"
+        },
+        "modified_date": {
+          "type": "string"
+        }
+      }
+    },
+    "TransportVehicle": {
+      "type": "object",
+      "properties": {
+        "image": {
+          "type": "string"
+        },
+        "permit": {
+          "type": "string"
+        },
+        "insurance": {
+          "type": "string"
+        },
+        "yearly_km": {
+          "type": "integer"
+        },
+        "yearly_insurance": {
+          "type": "integer"
+        },
+        "yearly_maintenance": {
+          "type": "integer"
+        },
+        "yearly_tax": {
+          "type": "integer"
+        },
+        "yearly_gara": {
+          "type": "integer"
+        },
+        "yearly_unexpected": {
+          "type": "integer"
+        },
+        "year_intend": {
+          "type": "integer"
+        },
+        "price_4_new_tyres": {
+          "type": "integer"
+        },
+        "average_consumption": {
+          "type": "integer"
+        },
+        "fuel_unit_price": {
+          "type": "integer"
+        },
+        "fuel_type": {
+          "type": "string"
+        },
+        "sold_value": {
+          "type": "integer"
+        },
+        "bought_value": {
+          "type": "integer"
+        },
+        "plate": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "year": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "created_date": {
+          "type": "string"
+        },
+        "modified_date": {
+          "type": "string"
+        }
+      }
+    },
+    "Deal": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "image": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "attachment": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "category_id": {
+          "type": "integer"
+        },
+        "product_id": {
+          "type": "integer"
+        },
+        "price": {
+          "type": "integer"
+        },
+        "sale_price": {
+          "type": "integer"
+        },
+        "discount": {
+          "type": "integer"
+        },
+        "discount_rate": {
+          "type": "integer"
+        },
+        "discount_expired": {
+          "type": "string"
+        },
+        "is_online": {
+          "type": "integer"
+        },
+        "online_started": {
+          "type": "integer"
+        },
+        "online_duration": {
+          "type": "integer"
+        },
+        "is_premium": {
+          "type": "integer"
+        },
+        "is_renew": {
+          "type": "integer"
+        },
+        "is_active": {
+          "type": "integer"
+        },
+        "lat": {
+          "type": "string"
+        },
+        "long": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "address": {
+          "type": "integer"
+        },
+        "seller_id": {
+          "type": "string"
+        },
+        "view_count": {
+          "type": "integer"
+        },
+        "like_count": {
+          "type": "integer"
+        },
+        "is_favourite": {
+          "type": "integer"
+        },
+        "rate": {
+          "type": "integer"
+        },
+        "rate_count": {
+          "type": "integer"
+        },
+        "reservation_count": {
+          "type": "integer"
+        },
+        "created_date": {
+          "type": "string"
+        },
+        "modified_date": {
+          "type": "string"
+        },
+        "created_user": {
+          "type": "integer"
+        },
+        "modified_user": {
+          "type": "integer"
+        },
+        "seller_avatar": {
+          "type": "string"
+        },
+        "seller_qb_id": {
+          "type": "integer"
+        },
+        "pro_data": {
+          "$ref": "#/definitions/ProUser"
+        }
+      }
+    },
+    "Friend": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "user_id": {
+          "type": "integer"
+        },
+        "friend_id": {
+          "type": "integer"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "qb_id": {
+          "type": "integer"
+        }
+      }
+    },
+    "Reservation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "buyer_id": {
+          "type": "integer"
+        },
+        "buyer_name": {
+          "type": "string"
+        },
+        "buyer_confirm": {
+          "type": "integer"
+        },
+        "buyer_visible": {
+          "type": "integer"
+        },
+        "seller_id": {
+          "type": "integer"
+        },
+        "seller_name": {
+          "type": "string"
+        },
+        "seller_confirm": {
+          "type": "integer"
+        },
+        "seller_visible": {
+          "type": "integer"
+        },
+        "deal_id": {
+          "type": "integer"
+        },
+        "deal_name": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer"
+        },
+        "time": {
+          "type": "integer"
+        },
+        "payment_method": {
+          "type": "string",
+          "description": "point/credit/paypal/cod",
+          "enum": [
+            "point",
+            "credit",
+            "paypal",
+            "cod"
+          ]
+        },
+        "payment_status": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "string"
+        },
+        "is_active": {
+          "type": "integer"
+        },
+        "created_date": {
+          "type": "string"
+        },
+        "modified_date": {
+          "type": "string"
+        },
+        "buyer_avatar": {
+          "type": "string"
+        },
+        "seller_avatar": {
+          "type": "string"
+        },
+        "deal": {
+          "$ref": "#/definitions/Deal"
+        }
+      }
+    },
+    "Transaction": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "transaction_id": {
+          "type": "string"
+        },
+        "external_transaction_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "integer"
+        },
+        "user_email": {
+          "type": "string"
+        },
+        "destination_id": {
+          "type": "integer"
+        },
+        "destination_email": {
+          "type": "string"
+        },
+        "object_id": {
+          "type": "integer"
+        },
+        "object_type": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "integer"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "payment_method": {
+          "type": "string",
+          "description": "point/credit/paypal/cod",
+          "enum": [
+            "point",
+            "credit",
+            "paypal",
+            "cod"
+          ]
+        },
+        "note": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string",
+          "description": "system_adjust/exchange_point/redeem_point/transfer_point/trip_payment/deal_payment/deal_online/driver_online",
+          "enum": [
+            "system_adjust",
+            "exchange_point",
+            "redeem_point",
+            "transfer_point",
+            "trip_payment",
+            "deal_payment",
+            "deal_online",
+            "driver_online"
+          ]
+        },
+        "type": {
+          "type": "string"
+        },
+        "time": {
+          "type": "integer"
+        },
+        "payment_status": {
+          "type": "integer"
+        },
+        "is_active": {
+          "type": "integer"
+        },
+        "created_date": {
+          "type": "string"
+        },
+        "created_user": {
+          "type": "integer"
+        },
+        "modified_date": {
+          "type": "string"
+        },
+        "modified_user": {
+          "type": "integer"
+        }
+      }
+    },
+    "Driver": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "qb_id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "lat": {
+          "type": "string"
+        },
+        "long": {
+          "type": "string"
+        },
+        "rate": {
+          "type": "string"
+        },
+        "rate_count": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "fare": {
+          "type": "string"
+        },
+        "is_delivery": {
+          "type": "integer"
+        },
+        "business_phone": {
+          "type": "string"
+        },
+        "business_email'": {
+          "type": "string"
+        },
+        "distance": {
+          "type": "integer"
+        },
+        "duration": {
+          "type": "integer"
+        }
+      }
+    },
+    "Location": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "lat": {
+          "type": "string"
+        },
+        "long": {
+          "type": "string"
+        }
+      }
+    },
+    "ProUser": {
+      "type": "object",
+      "properties": {
+        "rate": {
+          "type": "integer"
+        },
+        "rate_count": {
+          "type": "integer"
+        },
+        "business_name": {
+          "type": "string"
+        },
+        "business_email": {
+          "type": "string"
+        },
+        "business_address": {
+          "type": "string"
+        },
+        "business_website": {
+          "type": "string"
+        },
+        "business_phone": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "is_active": {
+          "type": "integer",
+          "description": "Is active or not"
+        },
+        "created_date": {
+          "type": "string"
+        },
+        "modified_date": {
+          "type": "string"
+        }
+      }
+    },
+    "Accounting": {
+      "type": "object",
+      "properties": {
+        "month": {
+          "type": "integer"
+        },
+        "revenue": {
+          "type": "integer"
+        },
+        "expense": {
+          "type": "string"
+        }
+      }
+    },
+    "AccountingList": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "default": "SUCCESS"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Accounting"
+          }
+        },
+        "message": {
+          "type": "string",
+          "default": "OK"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ApiResponseUser": {
+      "type": "object",
+      "required": [
+        "status",
+        "data",
+        "message",
+        "token"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "default": "SUCCESS"
+        },
+        "data": {
+          "$ref": "#/definitions/User"
+        },
+        "token": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string",
+          "default": "OK"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ApiResponseCategory": {
+      "type": "object",
+      "required": [
+        "status",
+        "data",
+        "message"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "default": "SUCCESS"
+        },
+        "data": {
+          "$ref": "#/definitions/Category"
+        },
+        "message": {
+          "type": "string",
+          "default": "OK"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ApiResponseDeal": {
+      "type": "object",
+      "required": [
+        "status",
+        "data",
+        "message"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "default": "SUCCESS"
+        },
+        "data": {
+          "$ref": "#/definitions/Deal"
+        },
+        "message": {
+          "type": "string",
+          "default": "OK"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ApiResponseDealList": {
+      "type": "object",
+      "required": [
+        "status",
+        "data",
+        "message"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "default": "SUCCESS"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Deal"
+          }
+        },
+        "total_page": {
+          "type": "string",
+          "default": "1"
+        },
+        "message": {
+          "type": "string",
+          "default": "OK"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ApiResponseFriendList": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "default": "SUCCESS"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Friend"
+          }
+        },
+        "total_page": {
+          "type": "string",
+          "default": "1"
+        },
+        "message": {
+          "type": "string",
+          "default": "OK"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ApiResponseReservation": {
+      "type": "object",
+      "required": [
+        "status",
+        "data",
+        "message"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "default": "SUCCESS"
+        },
+        "data": {
+          "$ref": "#/definitions/Reservation"
+        },
+        "message": {
+          "type": "string",
+          "default": "OK"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ApiResponseReservationList": {
+      "type": "object",
+      "required": [
+        "status",
+        "data",
+        "message"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "default": "SUCCESS"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Reservation"
+          }
+        },
+        "total_page": {
+          "type": "string",
+          "default": "1"
+        },
+        "message": {
+          "type": "string",
+          "default": "OK"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ApiResponseTransactionList": {
+      "type": "object",
+      "required": [
+        "status",
+        "data",
+        "message"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "default": "SUCCESS"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Transaction"
+          }
+        },
+        "total_page": {
+          "type": "string",
+          "default": "1"
+        },
+        "message": {
+          "type": "string",
+          "default": "OK"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ApiResponseDriverList": {
+      "type": "object",
+      "required": [
+        "status",
+        "data",
+        "message"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "default": "SUCCESS"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Driver"
+          }
+        },
+        "distance": {
+          "type": "integer",
+          "default": "0"
+        },
+        "duration": {
+          "type": "integer",
+          "default": "0"
+        },
+        "message": {
+          "type": "string",
+          "default": "OK"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ApiResponseReviewList": {
+      "type": "object",
+      "required": [
+        "status",
+        "data",
+        "message"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "default": "SUCCESS"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Review"
+          }
+        },
+        "total_page": {
+          "type": "string",
+          "default": "1"
+        },
+        "message": {
+          "type": "string",
+          "default": "OK"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ApiResponseTripList": {
+      "type": "object",
+      "required": [
+        "status",
+        "data",
+        "message"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "default": "SUCCESS"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Trip"
+          }
+        },
+        "total_page": {
+          "type": "string",
+          "default": "1"
+        },
+        "message": {
+          "type": "string",
+          "default": "OK"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ApiResponseDevice": {
+      "type": "object",
+      "required": [
+        "status",
+        "data",
+        "message"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "default": "SUCCESS"
+        },
+        "data": {
+          "$ref": "#/definitions/Device"
+        },
+        "message": {
+          "type": "string",
+          "default": "OK"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ApiResponseSetting": {
+      "type": "object",
+      "required": [
+        "status",
+        "data",
+        "message"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "default": "SUCCESS"
+        },
+        "data": {
+          "$ref": "#/definitions/Setting"
+        },
+        "message": {
+          "type": "string",
+          "default": "OK"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ApiResponseLocation": {
+      "type": "object",
+      "required": [
+        "status",
+        "data",
+        "message"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "default": "SUCCESS"
+        },
+        "data": {
+          "$ref": "#/definitions/Location"
+        },
+        "message": {
+          "type": "string",
+          "default": "OK"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ApiResponseUserSetting": {
+      "type": "object",
+      "required": [
+        "status",
+        "data",
+        "message"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "default": "SUCCESS"
+        },
+        "data": {
+          "$ref": "#/definitions/UserSetting"
+        },
+        "message": {
+          "type": "string",
+          "default": "OK"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ApiResponseSuccess": {
+      "type": "object",
+      "required": [
+        "status",
+        "data",
+        "message"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "default": "SUCCESS"
+        },
+        "data": {
+          "type": "string",
+          "default": ""
+        },
+        "message": {
+          "type": "string",
+          "default": "OK"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ApiResponseErrorUser": {
+      "type": "object",
+      "required": [
+        "status",
+        "data",
+        "message"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "default": "ERROR"
+        },
+        "data": {
+          "type": "string",
+          "default": ""
+        },
+        "message": {
+          "type": "string",
+          "description": "Error message",
+          "enum": [
+            "Missing params",
+            "Username or email does not exist",
+            "Username or email exist",
+            "Wrong password",
+            "Your account is not activated",
+            "FAIL",
+            "OK"
+          ]
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ApiResponseErrorGeneral": {
+      "type": "object",
+      "required": [
+        "status",
+        "data",
+        "message"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "default": "ERROR"
+        },
+        "data": {
+          "type": "string",
+          "default": ""
+        },
+        "message": {
+          "type": "string",
+          "description": "Error message",
+          "enum": [
+            "Token Mismatch",
+            "Missing params"
+          ]
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
